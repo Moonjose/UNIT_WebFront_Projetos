@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kanban de Tarefas</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <header>
+      <h1>🎯 Kanban de Tarefas</h1>
+      <div class="task-creator">
+        <input type="text" id="taskInput" placeholder="Nova tarefa..." />
+        <button onclick="addTask()">➕ Adicionar</button>
+      </div>
+    </header>
+    <main class="kanban-board">
+      <section class="column" id="em-aberto" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <h2 class="col-title aberto">📝 Em Aberto</h2>
+      </section>
+      <section class="column" id="bid" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <h2 class="col-title bid">💼 Bid (Negociação)</h2>
+      </section>
+      <section class="column" id="em-andamento" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <h2 class="col-title andamento">🚧 Em Andamento</h2>
+      </section>
+      <section class="column" id="entregue" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <h2 class="col-title entregue">✅ Entregue</h2>
+      </section>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

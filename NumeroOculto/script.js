@@ -2,37 +2,55 @@ let numeroSecreto;
 let tentativas = 0;
 const maxTentativas = 5;
 
-function iniciarJogo() {
-  const input = document.getElementById('numeroOculto');
-  numeroSecreto = parseInt(input.value);
-  if (isNaN(numeroSecreto)) {
-    alert("Digite um número válido.");
+function sortearNumero() {
+  const min = parseInt(document.getElementById('min').value);
+  const max = parseInt(document.getElementById('max').value);
+
+  if (isNaN(min) || isNaN(max) || min >= max) {
+    alert("Informe um intervalo válido (mínimo menor que o máximo).");
     return;
   }
+
+  // Sorteia número aleatório com Math.random()
+  numeroSecreto = Math.floor(Math.random() * (max - min + 1)) + min;
+  tentativas = 0;
+
+  // Oculta o painel do Jogador 1
+  document.getElementById('painelJogador1').style.display = 'none';
+
+  // Mostra o painel do Jogador 2
   document.getElementById('jogo').style.display = 'block';
-  input.disabled = true;
+
+  document.getElementById('palpite').disabled = false;
+  document.getElementById('palpite').value = '';
+  document.getElementById('mensagem').innerText = '';
+  document.getElementById('tentativas').innerText = `Tentativas restantes: ${maxTentativas}`;
+
+  // Apenas para testes
+  console.log("Número secreto sorteado:", numeroSecreto);
 }
 
 function verificarPalpite() {
   const palpite = parseInt(document.getElementById('palpite').value);
-  tentativas++;
-
-  const mensagem = document.getElementById('mensagem');
-  const tentativasRestantes = maxTentativas - tentativas;
-
   if (isNaN(palpite)) {
-    alert("Digite um número válido.");
+    alert("Digite um número válido!");
     return;
   }
+
+  tentativas++;
+  const tentativasRestantes = maxTentativas - tentativas;
+
+  const mensagem = document.getElementById('mensagem');
+  const inputPalpite = document.getElementById('palpite');
 
   if (palpite === numeroSecreto) {
     mensagem.innerText = "🎉 Parabéns! Você acertou!";
     mensagem.style.backgroundColor = "#a8e6cf";
-    document.getElementById('palpite').disabled = true;
+    inputPalpite.disabled = true;
   } else if (tentativas >= maxTentativas) {
     mensagem.innerText = `😞 Fim de jogo! O número era ${numeroSecreto}.`;
     mensagem.style.backgroundColor = "#ff8a80";
-    document.getElementById('palpite').disabled = true;
+    inputPalpite.disabled = true;
   } else {
     const dica = palpite > numeroSecreto ? "menor" : "maior";
     mensagem.innerText = `❌ Errou! O número é ${dica}.`;
@@ -40,18 +58,3 @@ function verificarPalpite() {
     document.getElementById('tentativas').innerText = `Tentativas restantes: ${tentativasRestantes}`;
   }
 }
-
-document.addEventListener('keydown', function (e) {
-  if (e.key === 'Enter') {
-    const numeroOcultoInput = document.getElementById('numeroOculto');
-    const palpiteInput = document.getElementById('palpite');
-
-    if (!numeroOcultoInput.disabled && numeroOcultoInput === document.activeElement) {
-      iniciarJogo();
-    }
-
-    if (!palpiteInput.disabled && palpiteInput === document.activeElement) {
-      verificarPalpite();
-    }
-  }
-});

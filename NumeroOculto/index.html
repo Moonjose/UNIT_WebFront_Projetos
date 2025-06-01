@@ -2,17 +2,18 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Jogo Número Oculto</title>
+  <title>Jogo com Número Randômico</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
   <div class="container">
-    <div class="painel painel1">
-      <h2>Jogador 1: Digite o número oculto</h2>
-      <input type="password" id="numeroOculto" placeholder="Digite um número" />
-      <button onclick="iniciarJogo()">Iniciar Jogo</button>
-    </div>
+    <div class="painel painel1" id="painelJogador1">
+  <h2>Jogador 1: Defina o intervalo</h2>
+  <input type="number" id="min" placeholder="Mínimo (ex: 1)" />
+  <input type="number" id="max" placeholder="Máximo (ex: 100)" />
+  <button onclick="sortearNumero()">Sortear Número</button>
+</div>
 
     <div class="painel painel2">
       <div id="jogo" style="display:none;">
@@ -24,6 +25,7 @@
       </div>
     </div>
   </div>
-<script src="script.js"></script>
+
+  <script src="script.js"></script>
 </body>
-  
+</html>

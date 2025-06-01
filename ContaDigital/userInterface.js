@@ -8,7 +8,7 @@ renderInicioTransacoes();
 // HTML da Área PIX
 const pixContent = `
   <h3 class="section-title">Área PIX</h3>
-  <div class="pix-header" id="btn-voltar-transacoes">
+  <div class="pix-header" id="btn-voltar-transacoes" style="cursor:pointer;">
     <img src="images/transactions_icon.png" />
     <h4 class="section-title">Transações</h4>
   </div>
@@ -51,17 +51,19 @@ const pixContent = `
       <button id="btn-transferir">TRANSFERIR</button>
     </div>
   </div>
+  <div id="feedback" class="feedback-message hidden"></div>
 `;
 
-// Mostra a tela inicial de transações vazias
+// Mostra a tela inicial de transações com histórico
 function renderInicioTransacoes() {
   transactionBox.innerHTML = `
     <h3 class="section-title">Últimas transações</h3>
-    <p class="system-message">Não constam transações.</p>
+    <ul id="lista-transacoes"></ul>
   `;
+  renderHistorico(); // atualiza lista
 }
 
-// Mostra mensagem de sistema indisponível
+// Mensagem de sistema indisponível
 function renderIndisponivel(titulo) {
   transactionBox.innerHTML = `
     <h3 class="section-title">${titulo}</h3>
@@ -88,11 +90,14 @@ function renderPix() {
     document.getElementById('tab-receber').classList.remove('active');
   });
 
-  // Botão de "voltar"
+  // Botão de "voltar" volta para o histórico
   document.getElementById('btn-voltar-transacoes').addEventListener('click', renderInicioTransacoes);
+
+  // Inicializa saldo e configura eventos PIX (sem renderizar histórico aqui)
+  inicializarPix();
 }
 
-// Liga os botões aos respectivos renders
-buttons[0].addEventListener('click', renderPix); // Área PIX
-buttons[1].addEventListener('click', () => renderIndisponivel("Pagar")); // Pagar
-buttons[2].addEventListener('click', () => renderIndisponivel("Investir")); // Investir
+// Liga os botões principais aos renders
+document.getElementById('btn-pix').addEventListener('click', renderPix);
+document.getElementById('btn-pagar').addEventListener('click', () => renderIndisponivel("Pagar"));
+document.getElementById('btn-investir').addEventListener('click', () => renderIndisponivel("Investir"));

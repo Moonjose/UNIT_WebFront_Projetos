@@ -21,17 +21,17 @@
   <main class="container">
     <section class="account-box">
       <p>Conta</p>
-      <h2>R$ 0,00</h2>
+      <h2 id="saldo">R$ 0,00</h2>
     </section>
 
     <section class="summary-box">
       <div class="summary-entry">
         <p>Entradas</p>
-        <span>R$ 0,00</span>
+        <span id="entradas">R$ 0,00</span>
       </div>
       <div class="summary-exit">
         <p>Saídas</p>
-        <span>R$ 0,00</span>
+        <span id="saidas">R$ 0,00</span>
       </div>
     </section>
 
@@ -41,19 +41,21 @@
     </section>
 
     <section class="transactions-box">
-      <!-- Render dinâmico -->
+      <ul id="lista-transacoes">
+        <li id="sem-transacoes">Não constam transações</li>
+      </ul>
     </section>
 
      <section class="buttons-box">
-    <button>
+    <button id="btn-pix">
       <img src="images/icon_pix_.png" alt="Pix">
       <span>Área PIX</span>
     </button>
-    <button onclick="abrirPagamento()">
+    <button id="btn-pagar" onclick="abrirPagamento()">
       <img src="images/icon _dollar_.png" alt="Enviar">
       <span>Pagar</span>
     </button>
-    <button>
+    <button id="btn-investir">
       <img src="images/icon _graph_.png" alt="Investir">
       <span>Investir</span>
     </button>
@@ -64,5 +66,6 @@
   </footer>
 
   <script src="script.js"></script>
+  <script src="logic.js"></script>
 </body>
 </html>

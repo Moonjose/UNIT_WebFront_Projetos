@@ -1,14 +1,15 @@
 const lamp = document.getElementById('lamp');
-let isOn = false;
 
 lamp.addEventListener('click', () => {
-    isOn = !isOn;
 
-    
-    lamp.src = isOn ? 'assets/lamp_on.png' : 'assets/lamp_off.png';
+    document.body.classList.toggle('modo-escuro');
 
-    
-    document.body.style.background = isOn
-        ? 'radial-gradient(circle, yellow 8%, white 100%)'
-        : 'radial-gradient(circle, white 8%, black 100%)';
+   
+    if (document.body.classList.contains('modo-escuro')) {
+        lamp.src = 'assets/lamp_off.png';
+        document.body.style.background = 'radial-gradient(circle, white 8%, black 100%)';
+    } else {
+        lamp.src = 'assets/lamp_on.png';
+        document.body.style.background = 'radial-gradient(circle, yellow 8%, white 100%)';
+    }
 });

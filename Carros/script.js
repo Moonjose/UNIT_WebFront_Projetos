@@ -8,7 +8,10 @@ const btnBranco = document.getElementById('branco');
 const btnVermelho = document.getElementById('vermelho');
 
 let selectedCar = null;
-let carSize = 50;        
+let carSizes = {
+    white: 50,
+    red: 50
+};
 const baseSize = 50;     
 const minSize = 20;      
 const maxSize = 100;     
@@ -33,41 +36,43 @@ function selectCar(color) {
 function updateCarSize() {
     if (!selectedCar) return;
 
-    let factor = (baseSize - carSize) / (baseSize - minSize);
+    const size = carSizes[selectedCar];
+    let factor = (baseSize - size) / (baseSize - minSize);
 
     let horizontalDisplacement = factor * maxHorizontalDisplacement;
     let verticalDisplacement = factor * maxVerticalDisplacement;
 
     if (selectedCar === 'white') {
-        whiteCar.style.width = `${carSize}px`;
-        whiteCar.style.height = `${carSize}px`;
-        whiteCar.style.left = `${leftOffset + horizontalDisplacement}px`;  
-        whiteCar.style.top = `${topWhite - verticalDisplacement}px`;       
+        whiteCar.style.width = `${size}px`;
+        whiteCar.style.height = `${size}px`;
+        whiteCar.style.left = `${leftOffset + horizontalDisplacement}px`;
+        whiteCar.style.top = `${topWhite - verticalDisplacement}px`;
     } else if (selectedCar === 'red') {
-        redCar.style.width = `${carSize}px`;
-        redCar.style.height = `${carSize}px`;
-        redCar.style.right = `${rightOffset + horizontalDisplacement}px`;  
-        redCar.style.top = `${topRed - verticalDisplacement}px`;           
+        redCar.style.width = `${size}px`;
+        redCar.style.height = `${size}px`;
+        redCar.style.right = `${rightOffset + horizontalDisplacement}px`;
+        redCar.style.top = `${topRed - verticalDisplacement}px`;
     }
 }
 
 function acelerar() {
-    if (selectedCar && carSize > minSize) {
-        carSize -= 10;
+    if (selectedCar && carSizes[selectedCar] > minSize) {
+        carSizes[selectedCar] -= 10;
         updateCarSize();
     }
 }
 
 function desacelerar() {
-    if (selectedCar && carSize < maxSize) {
-        carSize += 10;
+    if (selectedCar && carSizes[selectedCar] < maxSize) {
+        carSizes[selectedCar] += 10;
         updateCarSize();
     }
 }
 
 function reset() {
     selectedCar = null;
-    carSize = baseSize;
+    carSizes.white = baseSize;
+    carSizes.red = baseSize;
 
     whiteCar.style.width = `${baseSize}px`;
     whiteCar.style.height = `${baseSize}px`;
